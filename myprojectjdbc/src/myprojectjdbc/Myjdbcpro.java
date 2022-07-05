@@ -7,9 +7,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
-public class Userpro 
+import myprojectjdbc.Myjdbcpro;
+
+public class Myjdbcpro
 {
-	@SuppressWarnings("resource")
 	public void Insert()
 	{
 		try
@@ -18,16 +19,17 @@ public class Userpro
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/developers","root","Theroshni@01");
 		
+		@SuppressWarnings("resource")
 		Scanner sc= new Scanner(System.in);
 		System.out.println("Enter username:");
 		String username =sc.nextLine();
-		System.out.println("Enter Email:");
+		System.out.println("Enter email:");
 		String email =sc.nextLine();
-		System.out.println("Enter fullname");
+		System.out.println("Enter fullname:");
 		String fullname =sc.nextLine();
-		System.out.println("Enter password");
+		System.out.println("Enter password:");
 		String password =sc.nextLine();
-	
+		
 		String sql= "INSERT INTO users (username, email, fullname, password)"+ "VALUES(?, ?, ?, ?)";
 		PreparedStatement statement = con.prepareStatement(sql);
 		statement.setString(1, username);
@@ -39,22 +41,20 @@ public class Userpro
 	
 		if(rows > 0)
 		{
-			System.out.println("\n A new user has been Inserted Successfully...");
+			System.out.println(" A new user has been Inserted Successfully...");
 		}
-		System.out.println("\n After Inserting... \n ");
+		System.out.println("After Inserting");
 		ResultSet rs1=statement.executeQuery("select * from users");
 		while(rs1.next())
 		{
-		System.out.println(rs1.getString(1)+"\t"+rs1.getString(2)+"\t"+rs1.getString(3)+"\t"+rs1.getString(4));
+			System.out.println(rs1.getString(1)+"\t"+rs1.getString(2)+"\t"+rs1.getString(3)+"\t"+rs1.getString(4));
 		}
-		
 	}
 	catch (Exception e)
 	{
 		System.out.println(e.toString());
 	}
 	}
-	@SuppressWarnings("unused")
 	public void Display()
 	{
 		try
@@ -67,10 +67,6 @@ public class Userpro
 		
 		while(result.next())
 		{
-			String username= result.getString("username");
-			String fullname= result.getString("fullname");
-			String email= result.getString("email");
-			String password= result.getString("password");
 			
 			System.out.println(result.getString(1)+"\t"+result.getString(2)+"\t"+result.getString(3)+"\t"+result.getString(4));
 			
@@ -87,22 +83,23 @@ public class Userpro
 		{
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/developers","root","Theroshni@01");
-		String sql= "UPDATE users SET password='secret' WHERE username='rose'";
+		String sql= "UPDATE users SET password='secret' WHERE username='rose01'";
 		Statement statement= con.createStatement();
 		
 		int rows= statement.executeUpdate(sql);
 		
 		if(rows > 0)
 		{
-			System.out.println(" \n The user's information has been Updated Successfully...");
+			System.out.println(" The user's information has been Updated Successfully...");
 		}
-		System.out.println("\n After Updateting... \n ");
+		System.out.println("After Update");
 		ResultSet rs1=statement.executeQuery("select * from users");
 		while(rs1.next())
 		{
 		System.out.println(rs1.getString(1)+"\t"+rs1.getString(2)+"\t"+rs1.getString(3)+"\t"+rs1.getString(4));
 		}
 		}
+	
 		catch (Exception e)
 		{
 			System.out.println(e.toString());
@@ -115,17 +112,16 @@ public class Userpro
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/developers","root","Theroshni@01");
 		
-		String sql= "DELETE FROM users WHERE username= 'Althaf'";
+		String sql= "DELETE FROM users WHERE username= 'rose01'";
 		PreparedStatement statement = con.prepareStatement(sql);
 		
 		int rows= statement.executeUpdate();
 		
 		if(rows > 0)
 		{
-			System.out.println("\n The user's information has been Deleted Successfully...");
+			System.out.println(" The user's information has been Deleted Successfully...");
 		}
-		
-		System.out.println("\n After Deleting... \n");
+		System.out.println("After Delete");
 		ResultSet rs1=statement.executeQuery("select * from users");
 		while(rs1.next())
 		{
@@ -139,19 +135,18 @@ public class Userpro
 	}
 	
 	
-@SuppressWarnings("resource")
 public static void main(String[] args) 
 {
 
-Userpro obj=new Userpro();
-
+	Myjdbcpro obj=new Myjdbcpro();
+	
 try
 {
-	int n;
-do 
-{
+int n;
+do {
 System.out.println("***** JDBC CRUD PROJECT *****");
 System.out.println("Enter your choice:");
+@SuppressWarnings("resource")
 Scanner s=new Scanner(System.in);
 n=s.nextInt();
 switch(n)
@@ -189,14 +184,10 @@ switch(n)
 }
 }while(n!=0);
 }
-
 catch (Exception ex) 
 {
 	ex.printStackTrace();
 }
 }
+
 }
-
-
-
-
